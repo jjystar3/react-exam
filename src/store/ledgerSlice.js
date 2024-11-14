@@ -24,15 +24,13 @@ const calculateResult2 = (legder, value, newValue) => {
 
 export const ledgerSlice = createSlice({
   name: 'ledgerSlice',
-  initialState: { ledgerlist: [], result: 0, radio: "income" },
+  initialState: { ledgerlist: [], result: 0, radio: "income", nextId: 0 },
   reducers: {
     add: (state, action) => {      
       const { ledger, value, newValue } = action.payload;
       state.result = calculateResult(ledger, Number(value), Number(newValue));
-      let newId = 0;
-      if(state.ledgerlist.length > 0){
-        newId = state.ledgerlist.length;
-      }
+      const newId = state.nextId;
+      state.nextId += 1;
       let text = "";
       if(ledger === "income"){
         text = "(수입)"
